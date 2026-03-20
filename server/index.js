@@ -38,11 +38,11 @@ io.on("connection", (socket) => {
     socket.to(room).emit("signal", { data });
   });
 
-  socket.on("chat-message", ({ room, message, time, username }) => {
-    if (dmHistory[room]) dmHistory[room].push({ from: socket.id, text: message, time, username });
-    socket.to(room).emit("chat-message", { message, time, username });
+  socket.on("chat-message", ({ room, message, time, username, lang }) => {
+    if (dmHistory[room]) dmHistory[room].push({ from: socket.id, text: message, time, username, lang });
+    socket.to(room).emit("chat-message", { message, time, username, lang });
   });
-
+  
   socket.on("dm-message", ({ room, message, time, username }) => {
     if (dmHistory[room]) dmHistory[room].push({ from: socket.id, text: message, time, username });
     socket.to(room).emit("dm-message", { message, time, room, username });
